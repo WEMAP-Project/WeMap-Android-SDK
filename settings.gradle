@@ -1,0 +1,3 @@
+include ':WeMapAndroidSDK'
+include ':app'
+rootProject.name = "WeMapAndroidSDKTestApp"
