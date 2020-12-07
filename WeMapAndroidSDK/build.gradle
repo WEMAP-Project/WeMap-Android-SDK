@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.library'
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://mapbox.bintray.com/mapbox' }
+    }
+}
+
+android {
+    compileSdkVersion 28
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+//        buildConfigField "String", "GIT_REVISION_SHORT", String.format("\"%s\"", getGitRevision())
+        buildConfigField "String", "MAPBOX_SDK_IDENTIFIER", String.format("\"%s\"", "wemap-sdk-android")
+        buildConfigField "String", "MAPBOX_SDK_VERSION", String.format("\"%s\"", "1.0.0")
+        buildConfigField "String", "MAPBOX_VERSION_STRING", String.format("\"WeMap/%s\"", "1.0.0")
+        buildConfigField "String", "MAPBOX_EVENTS_USER_AGENT", String.format("\"wemap-sdk-android/%s\"", "1.0.0")
+        consumerProguardFiles "consumer-rules.pro"
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.google.android.material:material:1.2.1'
+    testImplementation 'junit:junit:4.+'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.5.0'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.android.support:support-fragment:28.0.0'
+    implementation 'com.facebook.soloader:soloader:0.9.0'
+    implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:4.9.0"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-gestures:0.5.1"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-accounts:0.2.0"
+    implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:4.9.0"
+}

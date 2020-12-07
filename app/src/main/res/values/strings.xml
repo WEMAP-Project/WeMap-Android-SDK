@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WeMapAndroidSDKTestApp</string>
+    <string name="access_token">YOUR_WEMAP_API_KEY</string>
+</resources>
