@@ -48,7 +48,7 @@ public class WeSearch {
                 }
                 LatLngBounds latLngBounds = weSearchOptions.getLatLngBounds();
                 if (latLngBounds != null) {
-                    searchURL = String.format("%s&bbox.min_lon=%s&bbox.max_lon=%s&bbox.min_lat=%s&bbox.max_lat=%s", searchURL, latLngBounds.getLatSouth(), latLngBounds.getLatNorth(), latLngBounds.getLonWest(), latLngBounds.getLonEast());
+                    searchURL = String.format("%s&bbox.min_lon=%s&bbox.max_lon=%s&bbox.min_lat=%s&bbox.max_lat=%s", searchURL, latLngBounds.getLonWest(), latLngBounds.getLonEast(), latLngBounds.getLatSouth(), latLngBounds.getLatNorth());
                 }
             }
             return searchURL;
@@ -60,19 +60,11 @@ public class WeSearch {
 
     private String buildReverseURL(LatLng latlng, WeSearchOptions weSearchOptions) {
         String access_token = WeMap.getAccessToken();
-        String reverseURL = String.format("%s?key=%s&lat=%s&lon=%s", WEMAP_REVERSE_API, access_token, latlng.getLatitude(), latlng.getLongitude());
+        String reverseURL = String.format("%s?key=%s&point.lat=%s&point.lon=%s", WEMAP_REVERSE_API, access_token, latlng.getLatitude(), latlng.getLongitude());
         if (weSearchOptions != null) {
             int size = weSearchOptions.getSize();
             if (size > 0 && size < 25) {
                 reverseURL = String.format("%s&size=%s", reverseURL, String.valueOf(size));
-            }
-            LatLng focusPoint = weSearchOptions.getFocusPoint();
-            if (focusPoint != null) {
-                reverseURL = String.format("%s&location.lat=%s&location.lon=%s", reverseURL, focusPoint.getLatitude(), focusPoint.getLongitude());
-            }
-            LatLngBounds latLngBounds = weSearchOptions.getLatLngBounds();
-            if (latLngBounds != null) {
-                reverseURL = String.format("%s&bbox.min_lon=%s&bbox.max_lon=%s&bbox.min_lat=%s&bbox.max_lat=%s", reverseURL, latLngBounds.getLatSouth(), latLngBounds.getLatNorth(), latLngBounds.getLonWest(), latLngBounds.getLonEast());
             }
         }
         return reverseURL;

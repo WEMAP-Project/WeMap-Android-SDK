@@ -1,12 +1,6 @@
 package asia.wemap.androidsdktestapp;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +15,7 @@ import asia.wemap.androidsdk.WeMap;
 import asia.wemap.androidsdk.WeMapMap;
 import asia.wemap.androidsdk.WeMapOptions;
 import asia.wemap.androidsdk.WeMapView;
-import asia.wemap.androidsdk.WePlace;
-import asia.wemap.androidsdk.WeSearch;
 import asia.wemap.androidsdk.geometry.LatLng;
-import asia.wemap.androidsdk.permissions.PermissionsListener;
 
 public class DirectionActivity extends AppCompatActivity {
 
@@ -33,7 +24,7 @@ public class DirectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
         WeMap.getInstance(this, getString(R.string.access_token));
 
         LatLng center =  new LatLng(21.0266469, 105.7615744);

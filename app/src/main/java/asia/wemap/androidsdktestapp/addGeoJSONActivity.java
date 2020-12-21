@@ -1,7 +1,5 @@
 package asia.wemap.androidsdktestapp;
 
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import asia.wemap.androidsdk.Style;
 import asia.wemap.androidsdk.WeMap;
 import asia.wemap.androidsdk.WeMapMap;
 import asia.wemap.androidsdk.WeMapOptions;

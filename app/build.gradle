@@ -32,5 +32,5 @@ android {
 dependencies {
 
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'com.github.WEMAP-Project:WeMap-Android-SDK:1.0.0'
+    implementation 'com.github.WEMAP-Project:WeMap-Android-SDK:1.1.0'
 }
