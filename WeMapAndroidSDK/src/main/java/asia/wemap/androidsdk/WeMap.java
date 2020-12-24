@@ -17,6 +17,12 @@ public class WeMap {
     @Nullable
     private String accessToken;
 
+    
+    /** 
+     * @param context
+     * @param accessToken
+     * @return WeMap
+     */
     @UiThread
     @NonNull
     public static synchronized WeMap getInstance(@NonNull Context context, @Nullable String accessToken) {
@@ -30,19 +36,35 @@ public class WeMap {
         this.accessToken = accessToken;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     @Nullable
     public static boolean hasInstance() {
         return Mapbox.hasInstance();
     }
 
+    
+    /** 
+     * @return Context
+     */
     public static Context getApplicationContext(){
         return INSTANCE.context;
     }
 
+    
+    /** 
+     * @param accessToken
+     */
     public static void setAccessToken(String accessToken) {
         INSTANCE.accessToken = accessToken;
     }
 
+    
+    /** 
+     * @return String
+     */
     public static String getAccessToken() {
         return INSTANCE.accessToken;
     }

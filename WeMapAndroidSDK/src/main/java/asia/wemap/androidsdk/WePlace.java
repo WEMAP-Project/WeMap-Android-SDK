@@ -39,10 +39,18 @@ public class WePlace {
         }
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getLocation(){
         return this.location.toString();
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString(){
         List<String> properties = new ArrayList<String>();
         if(placeName != null){
@@ -66,21 +74,45 @@ public class WePlace {
         return TextUtils.join(", ", properties);
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getName(){
         return this.placeName;
     }
+    
+    /** 
+     * @return String
+     */
     public String getHouseNumber(){
         return this.housenumber;
     }
+    
+    /** 
+     * @return String
+     */
     public String getStreet(){
         return this.street;
     }
+    
+    /** 
+     * @return String
+     */
     public String getWard(){
         return this.ward;
     }
+    
+    /** 
+     * @return String
+     */
     public String getDistrict(){
         return this.district;
     }
+    
+    /** 
+     * @return String
+     */
     public String getCity(){
         return this.city;
     }

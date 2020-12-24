@@ -23,7 +23,11 @@ public class WeDirectionResponse {
     private List<LatLng> points;
     private List<LatLng> waypoints;
     private List<Instruction> instructions;
-
+    /** 
+     * @param context
+     * @param accessToken
+     * @return WeMap
+     */
     public WeDirectionResponse(JSONObject weDirectionResponse) {
         try {
             JSONArray coordinates = weDirectionResponse.getJSONObject("snapped_waypoints").getJSONArray("coordinates");
@@ -59,41 +63,81 @@ public class WeDirectionResponse {
         }
     }
 
+    
+    /** 
+     * @return double
+     */
     public double getDistance() {
         return this.distance;
     }
 
+    
+    /** 
+     * @return double
+     */
     public double getWeight() {
         return this.weight;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getTime() {
         return this.time;
     }
 
+    
+    /** 
+     * @return double
+     */
     public double getTransfers() {
         return this.transfers;
     }
 
+    
+    /** 
+     * @return LatLng
+     */
     public LatLng getOriginPoint() {
         return this.originPoint;
     }
 
+    
+    /** 
+     * @return LatLng
+     */
     public LatLng getDestinationPoint() {
         return this.destinationPoint;
     }
 
+    
+    /** 
+     * @return List<Instruction>
+     */
     public List<Instruction> getInstructions() {
         return this.instructions;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getPointsString() {
         return this.pointsString;
     }
 
+    
+    /** 
+     * @return List<LatLng>
+     */
     public List<LatLng> getPoints() {
         return this.points;
     }
+    
+    /** 
+     * @return List<LatLng>
+     */
     public List<LatLng> getWayPoints() {
         return this.waypoints;
     }

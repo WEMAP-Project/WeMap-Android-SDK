@@ -36,32 +36,62 @@ public class WeMapOptions {
                         .build());
     }
 
+    
+    /** 
+     * @param enabled
+     * @return WeMapOptions
+     */
     public WeMapOptions rotateGesturesEnabled(boolean enabled) {
         options.rotateGesturesEnabled(enabled);
         return this;
     }
 
+    
+    /** 
+     * @param enabled
+     * @return WeMapOptions
+     */
     public WeMapOptions scrollGesturesEnabled(boolean enabled) {
         options.rotateGesturesEnabled(enabled);
         return this;
     }
 
 
+    
+    /** 
+     * @param enabled
+     * @return WeMapOptions
+     */
     public WeMapOptions tiltGesturesEnabled(boolean enabled) {
         options.rotateGesturesEnabled(enabled);
         return this;
     }
 
+    
+    /** 
+     * @param enabled
+     * @return WeMapOptions
+     */
     public WeMapOptions zoomGesturesEnabled(boolean enabled) {
         options.rotateGesturesEnabled(enabled);
         return this;
     }
 
+    
+    /** 
+     * @param enabled
+     * @return WeMapOptions
+     */
     public WeMapOptions doubleTapGesturesEnabled(boolean enabled) {
         options.rotateGesturesEnabled(enabled);
         return this;
     }
 
+    
+    /** 
+     * @param enabled
+     * @return WeMapOptions
+     */
     public WeMapOptions quickZoomGesturesEnabled(boolean enabled) {
         options.rotateGesturesEnabled(enabled);
         return this;

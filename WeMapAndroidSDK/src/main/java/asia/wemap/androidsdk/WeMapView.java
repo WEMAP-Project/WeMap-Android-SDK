@@ -55,6 +55,10 @@ public class WeMapView extends FrameLayout{
         });
     }
 
+    
+    /** 
+     * @return MapView
+     */
     protected MapView getMapView(){
         return this.mapview;
     }
@@ -92,6 +96,10 @@ public class WeMapView extends FrameLayout{
         });
     }
 
+    
+    /** 
+     * @param callback
+     */
     @UiThread
     public void getWeMapMapAsync(WeMapMap.OnWeMapReadyCallback callback) {
         if(weMapMap == null){
@@ -106,6 +114,10 @@ public class WeMapView extends FrameLayout{
         }
     }
 
+    
+    /** 
+     * @param savedInstanceState
+     */
     @UiThread
     public void onCreate(@Nullable Bundle savedInstanceState) {
         this.mapview.onCreate(savedInstanceState);
@@ -149,6 +161,10 @@ public class WeMapView extends FrameLayout{
         mapview.onDestroy();
     }
 
+    
+    /** 
+     * @param outState
+     */
     @UiThread
     public void onSaveInstanceState(@NonNull Bundle outState) {
         mapview.onSaveInstanceState(outState);
@@ -162,6 +178,10 @@ public class WeMapView extends FrameLayout{
 
     }
 
+    
+    /** 
+     * @param icon
+     */
     public void addLocationButton(int icon){
 
         this.fab = new FloatingActionButton(this.getContext());

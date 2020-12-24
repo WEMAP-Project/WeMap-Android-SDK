@@ -81,6 +81,10 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerID
+     */
     public void removeLayer(String layerID) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -129,6 +133,11 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerId
+     * @param layerURI
+     */
     public void addRasterLayer(String layerId, String layerURI) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -144,6 +153,13 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerId
+     * @param layerURI
+     * @param maxZoom
+     * @param minZoom
+     */
     public void addRasterLayer(String layerId, String layerURI, float maxZoom, float minZoom) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -162,6 +178,10 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerId
+     */
     public void removeRasterLayer(String layerId) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -173,6 +193,11 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param latLng
+     * @param image
+     */
     public void addMarker(LatLng latLng, @NonNull Bitmap image) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             private static final String DROPPED_MARKER_LAYER_ID = "DROPPED_MARKER_LAYER_ID";
@@ -193,6 +218,11 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerID
+     * @param geoJSONSource
+     */
     public void addGeoJSONPointLayer(String layerID, GeoJSONSource geoJSONSource) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -203,6 +233,13 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerID
+     * @param geoJSONSource
+     * @param circleRadius
+     * @param circleColor
+     */
     public void addGeoJSONPointLayer(String layerID, GeoJSONSource geoJSONSource, float circleRadius, String circleColor) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -216,6 +253,12 @@ public class WeMapMap {
     }
 
 
+    
+    /** 
+     * @param layerID
+     * @param geoJSONSource
+     * @param image
+     */
     public void addGeoJSONPointLayer(String layerID, GeoJSONSource geoJSONSource, @NonNull Bitmap image) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -233,6 +276,11 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerID
+     * @param geoJSONSource
+     */
     public void addGeoJSONPolylineLayer(String layerID, GeoJSONSource geoJSONSource) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -243,6 +291,14 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerID
+     * @param geoJSONSource
+     * @param lineWidth
+     * @param lineOpacity
+     * @param lineColor
+     */
     public void addGeoJSONPolylineLayer(String layerID, GeoJSONSource geoJSONSource, float lineWidth, float lineOpacity, String lineColor) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -258,6 +314,11 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerID
+     * @param geoJSONSource
+     */
     public void addGeoJSONPolygonLayer(String layerID, GeoJSONSource geoJSONSource) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -268,6 +329,12 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerID
+     * @param geoJSONSource
+     * @param polygonColor
+     */
     public void addGeoJSONPolygonLayer(String layerID, GeoJSONSource geoJSONSource, String polygonColor) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -279,6 +346,10 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param layerID
+     */
     public void removeGeoJSONLayer(String layerID) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -290,6 +361,10 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param weDirectionResponse
+     */
     public void addDirectionLayer(WeDirectionResponse weDirectionResponse) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
@@ -310,6 +385,10 @@ public class WeMapMap {
         removeGeoJSONLayer("destination-point-layer");
     }
 
+    
+    /** 
+     * @param onMapClickListener
+     */
     public void addOnMapClickListener(OnMapClickListener onMapClickListener) {
         this.onMapClickListener = new MapboxMap.OnMapClickListener() {
             @Override
@@ -321,11 +400,19 @@ public class WeMapMap {
         mapboxMap.addOnMapClickListener(this.onMapClickListener);
     }
 
+    
+    /** 
+     * @param onMapClickListener
+     */
     public void removeOnMapClickListener(OnMapClickListener onMapClickListener) {
         if(this.onMapClickListener != null)
         mapboxMap.removeOnMapClickListener(this.onMapClickListener);
     }
 
+    
+    /** 
+     * @param onMapLongClickListener
+     */
     public void addOnMapLongClickListener(OnMapLongClickListener onMapLongClickListener) {
         this.onMapLongClickListener = new MapboxMap.OnMapLongClickListener() {
             @Override
@@ -337,11 +424,20 @@ public class WeMapMap {
         mapboxMap.addOnMapLongClickListener(this.onMapLongClickListener);
     }
 
+    
+    /** 
+     * @param onMapLongClickListener
+     */
     public void removeOnMapLongClickListener(OnMapLongClickListener onMapLongClickListener) {
         if(this.onMapLongClickListener != null)
             mapboxMap.removeOnMapLongClickListener(this.onMapLongClickListener);
     }
 
+    
+    /** 
+     * @param PML
+     * @param activity
+     */
     @SuppressWarnings({"MissingPermission"})
     public void enableLocationPermission(PermissionsListener PML, Activity activity) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
@@ -370,6 +466,10 @@ public class WeMapMap {
 
     }
 
+    
+    /** 
+     * @param ctx
+     */
     @SuppressWarnings({"MissingPermission"})
     public void enableLocationComponent(Context ctx) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
@@ -389,6 +489,12 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param ctx
+     * @param CameraMode
+     * @param RenderMode
+     */
     @SuppressWarnings({"MissingPermission"})
     public void enableLocationComponent(Context ctx, int CameraMode, int RenderMode) {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
@@ -408,6 +514,11 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param ctx
+     * @param onLocationReadyCallback
+     */
     @SuppressWarnings({"MissingPermission"})
     public void getLastLocation(Context ctx, OnLocationReadyCallback onLocationReadyCallback) {
         LocationEngine locationEngine = LocationEngineProvider.getBestLocationEngine(ctx);
@@ -429,6 +540,11 @@ public class WeMapMap {
         });
     }
 
+    
+    /** 
+     * @param cameraPosition
+     * @param time
+     */
     public void animateCamera(CameraPosition cameraPosition, int time){
         mapboxMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition.getMCameraPosition()), time);

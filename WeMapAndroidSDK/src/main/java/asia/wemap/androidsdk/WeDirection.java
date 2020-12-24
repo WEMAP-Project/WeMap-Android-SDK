@@ -30,6 +30,12 @@ public class WeDirection {
 
     }
 
+    
+    /** 
+     * @param points
+     * @param weDirectionOptions
+     * @return String
+     */
     private String buildDirectionURL(@NonNull List<LatLng> points, WeDirectionOptions weDirectionOptions) {
         String access_token = WeMap.getAccessToken();
         List<String> pointsString = new ArrayList<>();
@@ -49,12 +55,18 @@ public class WeDirection {
 
     private String WEMAP_DIRECTION_API = "https://apis.wemap.asia/route-api/route";
 
+    
+    /** 
+     * Dan duong phai truyen it nhat 2 diem!
+     * @param points
+     * @param weDirectionCallBack
+     */
     public void route(@NonNull List<LatLng> points, @NonNull WeDirectionCallBack weDirectionCallBack) {
         if (!WeMap.hasInstance()) {
             throw new WeMapConfigurationException();
         }
         if (points == null || points.size() < 2) {
-            throw new WeDirectionException("Dẫn đường phải truyền ít nhất 2 điểm!");
+            throw new WeDirectionException("dan duong phai truyen it nhat 2 diem!");
         }
         String searchURL = buildDirectionURL(points, null);
         FetchDataTask fetchDataTask = new FetchDataTask(weDirectionCallBack);
@@ -62,12 +74,19 @@ public class WeDirection {
         fetchDataTask.getStatus();
     }
 
+    
+    /** 
+     * Dan duong phai truyen it nhat 2 diem!
+     * @param points
+     * @param weDirectionOptions
+     * @param weDirectionCallBack
+     */
     public void route(@NonNull List<LatLng> points, @NonNull WeDirectionOptions weDirectionOptions, @NonNull WeDirectionCallBack weDirectionCallBack) {
         if (!WeMap.hasInstance()) {
             throw new WeMapConfigurationException();
         }
         if (points == null || points.size() < 2) {
-            throw new WeDirectionException("Dẫn đường phải truyền ít nhất 2 điểm!");
+            throw new WeDirectionException("dan duong phai truyen it nhat 2 diem!");
         }
         String directionURL = buildDirectionURL(points, weDirectionOptions);
         FetchDataTask fetchDataTask = new FetchDataTask(weDirectionCallBack);
@@ -175,12 +194,14 @@ public class WeDirection {
         }
 
     }
-
+    /** 
+     * De bat dau su dung Wemap SDK vui long goi WeMap.getInstance(Context context, String accessToken) truoc khi tao View. Access token truong bat buoc truoc khi su dung cac dich vu cua WeMap.
+     */
     public class WeDirectionException extends RuntimeException {
-
+        
         public WeDirectionException() {
-            super("\nĐể bắt đầu sử dụng WeMap SDK vui lòng gọi WeMap.getInstance(Context context, String accessToken) trước khi "
-                    + "tạo View. Access token trường bắt buộc trước khi sử dụng các dịch vụ của WeMap.");
+            super("\nDe bat dau su dung Wemap SDK vui long goi WeMap.getInstance(Context context, String accessToken) truoc khi"
+                    + "tao View. Access token truong bat buoc truoc khi su dung cac dich vu cua WeMap.");
         }
 
         public WeDirectionException(@NonNull String message) {

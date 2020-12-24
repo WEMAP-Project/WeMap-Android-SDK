@@ -33,6 +33,12 @@ public class WeSearch {
 
     }
 
+    
+    /** 
+     * @param query
+     * @param weSearchOptions
+     * @return String
+     */
     private String buildSearchURL(String query, WeSearchOptions weSearchOptions) {
         String access_token = WeMap.getAccessToken();
         try {
@@ -58,6 +64,12 @@ public class WeSearch {
         return null;
     }
 
+    
+    /** 
+     * @param latlng
+     * @param weSearchOptions
+     * @return String
+     */
     private String buildReverseURL(LatLng latlng, WeSearchOptions weSearchOptions) {
         String access_token = WeMap.getAccessToken();
         String reverseURL = String.format("%s?key=%s&lat=%s&lon=%s", WEMAP_REVERSE_API, access_token, latlng.getLatitude(), latlng.getLongitude());
@@ -82,6 +94,11 @@ public class WeSearch {
     private String WEMAP_REVERSE_API = "https://apis.wemap.asia/geocode-1/reverse";
 
 
+    
+    /** 
+     * @param query
+     * @param weSearchCallBack
+     */
     public void search(@NonNull String query, @NonNull WeSearchCallBack weSearchCallBack) {
         if (!WeMap.hasInstance()) {
             throw new WeMapConfigurationException();
@@ -92,6 +109,12 @@ public class WeSearch {
         fetchDataTask.getStatus();
     }
 
+    
+    /** 
+     * @param query
+     * @param weSearchOptions
+     * @param weSearchCallBack
+     */
     public void search(@NonNull String query, @NonNull WeSearchOptions weSearchOptions, @NonNull WeSearchCallBack weSearchCallBack) {
         if (!WeMap.hasInstance()) {
             throw new WeMapConfigurationException();
@@ -102,6 +125,11 @@ public class WeSearch {
         fetchDataTask.getStatus();
     }
 
+    
+    /** 
+     * @param latlng
+     * @param weSearchCallBack
+     */
     public void reverse(LatLng latlng, WeSearchCallBack weSearchCallBack) {
         if (!WeMap.hasInstance()) {
             throw new WeMapConfigurationException();
@@ -112,6 +140,12 @@ public class WeSearch {
         fetchDataTask.getStatus();
     }
 
+    
+    /** 
+     * @param latlng
+     * @param weSearchOptions
+     * @param weSearchCallBack
+     */
     public void reverse(LatLng latlng, WeSearchOptions weSearchOptions, WeSearchCallBack weSearchCallBack) {
         if (!WeMap.hasInstance()) {
             throw new WeMapConfigurationException();

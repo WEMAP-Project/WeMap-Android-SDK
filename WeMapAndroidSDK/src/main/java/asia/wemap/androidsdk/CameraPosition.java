@@ -4,7 +4,11 @@ import asia.wemap.androidsdk.geometry.LatLng;
 
 public final class CameraPosition {
   private com.mapbox.mapboxsdk.camera.CameraPosition mCameraPosition;
-
+    /** 
+     * Sets the zoom
+     * Rotate the camera
+     * Set the camera tilt
+     */
   public CameraPosition(){
     this.mCameraPosition = new com.mapbox.mapboxsdk.camera.CameraPosition.Builder()
             .target(new com.mapbox.mapboxsdk.geometry.LatLng(21.0266469, 105.7615744))
@@ -14,7 +18,11 @@ public final class CameraPosition {
             .build();
   }
 
-
+    /** 
+     * Sets the zoom
+     * Rotate the camera
+     * Set the camera tilt
+     */
   public CameraPosition(LatLng target, int zoom, int bearing, int tilt){
     this.mCameraPosition = new com.mapbox.mapboxsdk.camera.CameraPosition.Builder()
             .target(new com.mapbox.mapboxsdk.geometry.LatLng(target.getLatitude(), target.getLongitude()))
@@ -24,6 +32,10 @@ public final class CameraPosition {
             .build();
   }
 
+  
+  /** 
+   * @return CameraPosition
+   */
   protected com.mapbox.mapboxsdk.camera.CameraPosition getMCameraPosition(){
     return this.mCameraPosition;
   }
