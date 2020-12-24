@@ -1,7 +1,5 @@
 package asia.wemap.androidsdktestapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,7 +17,6 @@ import asia.wemap.androidsdk.WeMapView;
 import asia.wemap.androidsdk.WeMapOptions;
 import asia.wemap.androidsdk.geometry.LatLng;
 import asia.wemap.androidsdk.permissions.PermissionsListener;
-import asia.wemap.androidsdk.permissions.PermissionsManager;
 
 public class MainActivity extends AppCompatActivity implements PermissionsListener {
 

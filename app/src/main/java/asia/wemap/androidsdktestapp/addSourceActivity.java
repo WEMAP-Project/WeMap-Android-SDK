@@ -1,13 +1,10 @@
 package asia.wemap.androidsdktestapp;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import asia.wemap.androidsdk.Style;
 import asia.wemap.androidsdk.WeMap;
 import asia.wemap.androidsdk.WeMapMap;
 import asia.wemap.androidsdk.WeMapOptions;
