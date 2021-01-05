@@ -9,6 +9,11 @@ import androidx.annotation.NonNull;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
@@ -23,8 +28,16 @@ import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 import com.mapbox.mapboxsdk.location.LocationComponentOptions;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
+import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolClickListener;
+import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolLongClickListener;
+import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
+import com.mapbox.mapboxsdk.plugins.markerview.MarkerView;
+import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager;
 import com.mapbox.mapboxsdk.style.layers.CircleLayer;
 import com.mapbox.mapboxsdk.style.layers.FillLayer;
 import com.mapbox.mapboxsdk.style.layers.LineLayer;
@@ -38,10 +51,12 @@ import com.mapbox.mapboxsdk.style.sources.TileSet;
 
 import java.util.List;
 
+import asia.wemap.androidsdk.annotaion.WeMapMarker;
 import asia.wemap.androidsdk.geometry.LatLng;
 import asia.wemap.androidsdk.permissions.PermissionsListener;
 import asia.wemap.androidsdk.style.sources.GeoJSONSource;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
@@ -52,15 +67,94 @@ public class WeMapMap {
     private static final int REQUEST_LOCATION = 1;
 
     private static MapboxMap mapboxMap;
-    LocationManager locationManager;
-    MapboxMap.OnMapClickListener onMapClickListener;
-    MapboxMap.OnMapLongClickListener onMapLongClickListener;
+    private LocationManager locationManager;
+    private MapboxMap.OnMapClickListener onMapClickListener;
+    private MapboxMap.OnMapLongClickListener onMapLongClickListener;
+    private SymbolManager symbolManager;
+    private MarkerViewManager markerViewManager;
+    private MarkerView markerView;
 
     Context context;
 
     public WeMapMap(Context ctx, MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
         this.context = ctx;
+    }
+
+    public WeMapMap(Context ctx, MapboxMap mapboxMap, MapView mapView, Style style) {
+        this.mapboxMap = mapboxMap;
+        this.context = ctx;
+        this.symbolManager = new SymbolManager(mapView, mapboxMap, style);
+        this.markerViewManager = new MarkerViewManager(mapView, mapboxMap);
+
+    }
+
+    public void addImage(String ICON_ID, @NonNull Bitmap image){
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                style.addImage(ICON_ID, image);
+            }
+        });
+    }
+
+    public void onMarkerClick(OnMarkerClickListener onMarkerClickListener){
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                if(symbolManager != null){
+                    symbolManager.addClickListener(new OnSymbolClickListener() {
+                        @Override
+                        public boolean onAnnotationClick(Symbol symbol) {
+                            onMarkerClickListener.OnMarkerClick(new WeMapMarker(symbol));
+                            return true;
+                        }
+                    });
+                    symbolManager.addLongClickListener(new OnSymbolLongClickListener() {
+                        @Override
+                        public boolean onAnnotationLongClick(Symbol symbol) {
+                            onMarkerClickListener.OnMarkerLongClick(new WeMapMarker(symbol));
+                            return true;
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void createMarker(LatLng latLng, String ICON_ID){
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                if(symbolManager != null){
+                    Symbol symbol = symbolManager.create(new SymbolOptions()
+                            .withLatLng(new
+                                    com.mapbox.mapboxsdk.geometry.LatLng(latLng.getLatitude(), latLng.getLongitude()))
+                            .withIconImage(ICON_ID)
+                            .withIconSize(1.0f));
+
+                    symbolManager.addClickListener(new OnSymbolClickListener() {
+                        @Override
+                        public boolean onAnnotationClick(Symbol symbol) {
+                            return true;
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void createViewMarker(LatLng latLng, View view){
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                if(markerView != null)
+                    markerViewManager.removeMarker(markerView);
+                markerView = new MarkerView(new
+                        com.mapbox.mapboxsdk.geometry.LatLng(latLng.getLatitude(), latLng.getLongitude()), view);
+                markerViewManager.addMarker(markerView);
+            }
+        });
     }
 
     public void addTrafficLayer() {
@@ -80,7 +174,6 @@ public class WeMapMap {
             }
         });
     }
-
     
     /** 
      * @param layerID
@@ -251,8 +344,6 @@ public class WeMapMap {
             }
         });
     }
-
-
     
     /** 
      * @param layerID
@@ -275,7 +366,6 @@ public class WeMapMap {
             }
         });
     }
-
     
     /** 
      * @param layerID

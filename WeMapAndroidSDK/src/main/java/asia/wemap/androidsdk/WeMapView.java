@@ -48,9 +48,9 @@ public class WeMapView extends FrameLayout{
                 mapboxMap.setStyle(asia.wemap.androidsdk.Style.WEMAP_BASIC, new com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
+                        weMapMap = new WeMapMap(context, mapboxMap, mapview, style);
                     }
                 });
-                weMapMap = new WeMapMap(context, mapboxMap);
             }
         });
     }
@@ -72,9 +72,9 @@ public class WeMapView extends FrameLayout{
                 mapboxMap.setStyle(asia.wemap.androidsdk.Style.WEMAP_BASIC, new com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
+                        weMapMap = new WeMapMap(context, mapboxMap, mapview, style);
                     }
                 });
-                weMapMap = new WeMapMap(context, mapboxMap);
             }
         });
     }
@@ -89,9 +89,9 @@ public class WeMapView extends FrameLayout{
                 mapboxMap.setStyle(asia.wemap.androidsdk.Style.WEMAP_BASIC, new com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
+                        weMapMap = new WeMapMap(context, mapboxMap, mapview, style);
                     }
                 });
-                weMapMap = new WeMapMap(context, mapboxMap);
             }
         });
     }
@@ -106,7 +106,14 @@ public class WeMapView extends FrameLayout{
             this.mapview.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(@NonNull MapboxMap mapboxMap) {
-                    callback.onMapReady(new WeMapMap(context, mapboxMap));
+                    mapboxMap.setStyle(asia.wemap.androidsdk.Style.WEMAP_BASIC, new com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded() {
+                        @Override
+                        public void onStyleLoaded(@NonNull Style style) {
+                            weMapMap = new WeMapMap(context, mapboxMap, mapview, style);
+                            callback.onMapReady(weMapMap);
+
+                        }
+                    });
                 }
             });
         } else {
