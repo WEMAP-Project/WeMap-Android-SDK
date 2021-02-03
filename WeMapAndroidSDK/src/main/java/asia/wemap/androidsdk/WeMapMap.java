@@ -157,6 +157,17 @@ public class WeMapMap {
         });
     }
 
+    public void removeAllMarker(){
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                if(symbolManager != null){
+                    symbolManager.deleteAll();
+                }
+            }
+        });
+    }
+
     public void createViewMarker(LatLng latLng, View view){
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
