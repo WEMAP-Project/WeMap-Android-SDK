@@ -11,7 +11,7 @@
         android:theme="@style/Theme.WeMapAndroidSDKTestApp">
 
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-        <activity android:name="asia.wemap.androidsdktestapp.MarkerInfoActivity">
+        <activity android:name="asia.wemap.androidsdktestapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

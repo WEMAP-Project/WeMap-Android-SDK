@@ -24,6 +24,7 @@ import asia.wemap.androidsdk.exceptions.WeMapConfigurationException;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 
@@ -41,7 +42,8 @@ public class WeMapView extends FrameLayout{
 
     public WeMapView(@NonNull Context context) {
         super(context);
-        this.mapview = new MapView(context);
+        MapboxMapOptions options = MapboxMapOptions.createFromAttributes(context, null).logoEnabled(false).attributionEnabled(false);
+        this.mapview = new MapView(context, options);
         this.mapview.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull MapboxMap mapboxMap) {
@@ -180,9 +182,10 @@ public class WeMapView extends FrameLayout{
     protected void addLogo(){
         ImageView logo = new ImageView(this.getContext());
         logo.setImageResource(R.drawable.logo);
-        logo.setLayoutParams(new LayoutParams(200, (int)(200/1.5)));
+        LayoutParams layoutParams = new LayoutParams(300, (int)(200/1.5));
+        layoutParams.gravity = Gravity.BOTTOM;
+        logo.setLayoutParams(layoutParams);
         this.mapview.addView(logo);
-
     }
 
     
