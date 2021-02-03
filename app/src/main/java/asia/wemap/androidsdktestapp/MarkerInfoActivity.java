@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import asia.wemap.androidsdk.OnMarkerClickListener;
 import asia.wemap.androidsdk.WeMap;
 import asia.wemap.androidsdk.WeMapMap;
-import asia.wemap.androidsdk.WeMapSymbol;
 import asia.wemap.androidsdk.WeMapView;
 import asia.wemap.androidsdk.WeMapOptions;
 import asia.wemap.androidsdk.annotaion.WeMapMarker;
@@ -25,8 +24,6 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class MarkerInfoActivity extends AppCompatActivity {
     private WeMapView mapView;
     private static final String ICON_ID = "ICON_ID";
-
-    WeMapSymbol wemapSymbol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +59,9 @@ public class MarkerInfoActivity extends AppCompatActivity {
                     @Override
                     public void OnMarkerLongClick(WeMapMarker marker) {
                         //Xoa marker
-                        wemapMap.removeMarker(wemapSymbol);
+                        wemapMap.removeMarker(marker);
+                        //Xoa het marker
+                        wemapMap.removeAllMarker();
                         Log.d("test", marker.getMarkerGeometry().toString());
                     }
                 });
@@ -71,7 +70,7 @@ public class MarkerInfoActivity extends AppCompatActivity {
                 //Add Image
                 wemapMap.addImage(ICON_ID, BitmapFactory.decodeResource(getResources(), R.drawable.marker2));
                 //Add Marker
-                wemapSymbol = wemapMap.createMarker(new LatLng(21, 105), ICON_ID);
+                wemapMap.createMarker(new LatLng(21, 105), ICON_ID);
 
             }
         });

@@ -6,11 +6,24 @@ import asia.wemap.androidsdk.geometry.LatLng;
 
 public class WeMapMarker {
     private Symbol symbol;
+
+    public WeMapMarker(){
+        this.symbol = symbol;
+    }
+
     public WeMapMarker(Symbol symbol){
         this.symbol = symbol;
     }
 
     public LatLng getMarkerGeometry(){
-        return new LatLng(this.symbol.getGeometry().latitude(),this.symbol.getGeometry().longitude());
+        return new LatLng(this.symbol.getGeometry().latitude(), this.symbol.getGeometry().longitude());
+    }
+
+    public void setSymbol(Symbol symbol){
+        this.symbol = symbol;
+    }
+
+    public Symbol getSymbol(){
+        return this.symbol;
     }
 }

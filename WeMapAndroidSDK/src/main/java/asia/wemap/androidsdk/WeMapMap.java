@@ -122,8 +122,8 @@ public class WeMapMap {
         });
     }
 
-    public WeMapSymbol createMarker(LatLng latLng, String ICON_ID){
-        WeMapSymbol wemapSymbol = new WeMapSymbol();
+    public WeMapMarker createMarker(LatLng latLng, String ICON_ID){
+        WeMapMarker wemapMarker = new WeMapMarker();
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
@@ -133,7 +133,7 @@ public class WeMapMap {
                                     com.mapbox.mapboxsdk.geometry.LatLng(latLng.getLatitude(), latLng.getLongitude()))
                             .withIconImage(ICON_ID)
                             .withIconSize(1.0f));
-                    wemapSymbol.setSymbol(symbol);
+                    wemapMarker.setSymbol(symbol);
                     symbolManager.addClickListener(new OnSymbolClickListener() {
                         @Override
                         public boolean onAnnotationClick(Symbol symbol) {
@@ -143,15 +143,15 @@ public class WeMapMap {
                 }
             }
         });
-        return wemapSymbol;
+        return wemapMarker;
     }
 
-    public void removeMarker(WeMapSymbol wemapSymbol){
+    public void removeMarker(WeMapMarker wemapMarker){
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 if(symbolManager != null){
-                    symbolManager.delete(wemapSymbol.getSymbol());
+                    symbolManager.delete(wemapMarker.getSymbol());
                 }
             }
         });
