@@ -122,7 +122,8 @@ public class WeMapMap {
         });
     }
 
-    public void createMarker(LatLng latLng, String ICON_ID){
+    public WeMapSymbol createMarker(LatLng latLng, String ICON_ID){
+        WeMapSymbol wemapSymbol = new WeMapSymbol();
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
@@ -132,13 +133,25 @@ public class WeMapMap {
                                     com.mapbox.mapboxsdk.geometry.LatLng(latLng.getLatitude(), latLng.getLongitude()))
                             .withIconImage(ICON_ID)
                             .withIconSize(1.0f));
-
+                    wemapSymbol.setSymbol(symbol);
                     symbolManager.addClickListener(new OnSymbolClickListener() {
                         @Override
                         public boolean onAnnotationClick(Symbol symbol) {
                             return true;
                         }
                     });
+                }
+            }
+        });
+        return wemapSymbol;
+    }
+
+    public void removeMarker(WeMapSymbol wemapSymbol){
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                if(symbolManager != null){
+                    symbolManager.delete(wemapSymbol.getSymbol());
                 }
             }
         });
