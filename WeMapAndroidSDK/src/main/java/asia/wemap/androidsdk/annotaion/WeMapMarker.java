@@ -1,6 +1,7 @@
 package asia.wemap.androidsdk.annotaion;
 
 import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
+import com.mapbox.mapboxsdk.plugins.markerview.MarkerView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import asia.wemap.androidsdk.geometry.LatLng;
 
 public class WeMapMarker {
     private Symbol symbol;
+    private MarkerView markerView;
     private Map<String, String> properties = new HashMap<String, String>();
 
     public WeMapMarker(){
@@ -34,6 +36,18 @@ public class WeMapMarker {
 
     public Symbol getSymbol(){
         return this.symbol;
+    }
+
+    public void setViewMarker(MarkerView markerView){
+        this.markerView = markerView;
+    }
+
+    public void setWeMapViewMarker(WeMapViewMarker weMapViewMarker){
+        this.markerView = weMapViewMarker.getViewMarker();
+    }
+
+    public MarkerView getViewMarker(){
+        return this.markerView;
     }
 
     public long getId(){

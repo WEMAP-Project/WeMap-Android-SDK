@@ -74,7 +74,6 @@ public class WeMapMap {
     private MapboxMap.OnMapLongClickListener onMapLongClickListener;
     private SymbolManager symbolManager;
     private MarkerViewManager markerViewManager;
-    private MarkerView markerView;
     private List<WeMapMarker> _markers = new ArrayList<WeMapMarker>();
 
     Context context;
@@ -109,22 +108,22 @@ public class WeMapMap {
                     symbolManager.addClickListener(new OnSymbolClickListener() {
                         @Override
                         public boolean onAnnotationClick(Symbol symbol) {
-                            _markers.forEach((marker) -> {
-                                if(symbol.getId() == marker.getId()){
-                                    onMarkerClickListener.OnMarkerClick(marker);
+                            for(int i=0; i< _markers.size(); i++){
+                                if(symbol.getId() == _markers.get(i).getId()){
+                                    onMarkerClickListener.OnMarkerClick(_markers.get(i));
                                 }
-                            });
+                            }
                             return true;
                         }
                     });
                     symbolManager.addLongClickListener(new OnSymbolLongClickListener() {
                         @Override
                         public boolean onAnnotationLongClick(Symbol symbol) {
-                            _markers.forEach((marker) -> {
-                                if(symbol.getId() == marker.getId()){
-                                    onMarkerClickListener.OnMarkerLongClick(new WeMapMarker(symbol));
+                            for(int i=0; i< _markers.size(); i++){
+                                if(symbol.getId() == _markers.get(i).getId()){
+                                    onMarkerClickListener.OnMarkerLongClick(_markers.get(i));
                                 }
-                            });
+                            }
                             return true;
                         }
                     });
@@ -164,6 +163,9 @@ public class WeMapMap {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 if(symbolManager != null){
+                    if(wemapMarker.getViewMarker() != null){
+                        markerViewManager.removeMarker(wemapMarker.getViewMarker());
+                    }
                     symbolManager.delete(wemapMarker.getSymbol());
                 }
             }
@@ -171,13 +173,18 @@ public class WeMapMap {
     }
 
     public void removeAllMarker(){
-        _markers.clear();
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 if(symbolManager != null){
+                    for(int i=0; i< _markers.size(); i++){
+                        if(_markers.get(i).getViewMarker() != null){
+                            markerViewManager.removeMarker(_markers.get(i).getViewMarker());
+                        }
+                    }
                     symbolManager.deleteAll();
                 }
+                _markers.clear();
             }
         });
     }
@@ -187,11 +194,25 @@ public class WeMapMap {
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-                if(markerView != null)
-                    markerViewManager.removeMarker(markerView);
-                markerView = new MarkerView(new
+                MarkerView markerView = new MarkerView(new
                         com.mapbox.mapboxsdk.geometry.LatLng(latLng.getLatitude(), latLng.getLongitude()), view);
                 weMapViewMarker.setMarker(markerView);
+                markerViewManager.addMarker(markerView);
+            }
+        });
+        return weMapViewMarker;
+    }
+
+    public WeMapViewMarker createViewMarker(WeMapMarker wemapMarker, View view){
+        WeMapViewMarker weMapViewMarker = new WeMapViewMarker();
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                MarkerView markerView = new MarkerView(new
+                        com.mapbox.mapboxsdk.geometry.LatLng(wemapMarker.getMarkerGeometry().getLatitude(), wemapMarker.getMarkerGeometry().getLongitude()), view);
+                weMapViewMarker.setMarker(markerView);
+                wemapMarker.setWeMapViewMarker(weMapViewMarker);
+                markerViewManager.addMarker(markerView);
             }
         });
         return weMapViewMarker;

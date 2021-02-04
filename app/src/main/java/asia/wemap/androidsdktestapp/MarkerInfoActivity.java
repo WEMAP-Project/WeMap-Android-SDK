@@ -18,6 +18,7 @@ import asia.wemap.androidsdk.WeMapMap;
 import asia.wemap.androidsdk.WeMapView;
 import asia.wemap.androidsdk.WeMapOptions;
 import asia.wemap.androidsdk.annotaion.WeMapMarker;
+import asia.wemap.androidsdk.annotaion.WeMapViewMarker;
 import asia.wemap.androidsdk.geometry.LatLng;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -50,8 +51,7 @@ public class MarkerInfoActivity extends AppCompatActivity {
 
                 wemapMap.onMarkerClick(new OnMarkerClickListener() {
                     @Override
-                    public void OnMarkerClick(WeMapMarker marker) {
-                        Log.d("test", marker.getMarkerGeometry().toString());
+                    public void OnMarkerClick(WeMapMarker weMapMarker) {
 
                         //Add markerView
                         View customView = LayoutInflater.from(MarkerInfoActivity.this).inflate(
@@ -59,11 +59,11 @@ public class MarkerInfoActivity extends AppCompatActivity {
                         customView.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
 
                         TextView titleTextView = customView.findViewById(R.id.marker_window_title);
-                        titleTextView.setText(marker.get("name"));
+                        titleTextView.setText(weMapMarker.get("name"));
 
                         TextView snippetTextView = customView.findViewById(R.id.marker_window_snippet);
                         snippetTextView.setText("Hello, World!");
-                        wemapMap.createViewMarker(marker.getMarkerGeometry(), customView);
+                        wemapMap.createViewMarker(weMapMarker, customView);
                     }
 
                     @Override
