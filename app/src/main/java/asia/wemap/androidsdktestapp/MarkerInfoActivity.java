@@ -42,7 +42,8 @@ public class MarkerInfoActivity extends AppCompatActivity {
                 wemapMap.addOnMapClickListener(new WeMapMap.OnMapClickListener() {
                     @Override
                     public boolean onMapClick(LatLng point) {
-                        wemapMap.createMarker(new LatLng(point), ICON_ID);
+                        WeMapMarker marker = wemapMap.createMarker(new LatLng(point), ICON_ID);
+                        marker.set("name", String.valueOf(point.getLatitude()) + ", " + String.valueOf(point.getLongitude()));
                         return true;
                     }
                 } );
@@ -58,7 +59,7 @@ public class MarkerInfoActivity extends AppCompatActivity {
                         customView.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
 
                         TextView titleTextView = customView.findViewById(R.id.marker_window_title);
-                        titleTextView.setText("PopupInfo");
+                        titleTextView.setText(marker.get("name"));
 
                         TextView snippetTextView = customView.findViewById(R.id.marker_window_snippet);
                         snippetTextView.setText("Hello, World!");
@@ -70,7 +71,7 @@ public class MarkerInfoActivity extends AppCompatActivity {
                         //Xoa marker
                         wemapMap.removeMarker(marker);
                         //Xoa het marker
-                        wemapMap.removeAllMarker();
+//                        wemapMap.removeAllMarker();
                         Log.d("test", marker.getMarkerGeometry().toString());
                     }
                 });
@@ -79,7 +80,8 @@ public class MarkerInfoActivity extends AppCompatActivity {
                 //Add Image
                 wemapMap.addImage(ICON_ID, BitmapFactory.decodeResource(getResources(), R.drawable.marker2));
                 //Add Marker
-                wemapMap.createMarker(new LatLng(21, 105), ICON_ID);
+                WeMapMarker marker = wemapMap.createMarker(new LatLng(21, 105), ICON_ID);
+                marker.set("name", "WeMap");
 
             }
         });

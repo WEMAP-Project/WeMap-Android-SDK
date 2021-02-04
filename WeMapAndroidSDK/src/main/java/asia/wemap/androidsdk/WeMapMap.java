@@ -49,6 +49,7 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.mapboxsdk.style.sources.RasterSource;
 import com.mapbox.mapboxsdk.style.sources.TileSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import asia.wemap.androidsdk.annotaion.WeMapMarker;
@@ -73,6 +74,7 @@ public class WeMapMap {
     private SymbolManager symbolManager;
     private MarkerViewManager markerViewManager;
     private MarkerView markerView;
+    private List<WeMapMarker> _markers = new ArrayList<WeMapMarker>();
 
     Context context;
 
@@ -106,14 +108,22 @@ public class WeMapMap {
                     symbolManager.addClickListener(new OnSymbolClickListener() {
                         @Override
                         public boolean onAnnotationClick(Symbol symbol) {
-                            onMarkerClickListener.OnMarkerClick(new WeMapMarker(symbol));
+                            _markers.forEach((marker) -> {
+                                if(symbol.getId() == marker.getId()){
+                                    onMarkerClickListener.OnMarkerClick(marker);
+                                }
+                            });
                             return true;
                         }
                     });
                     symbolManager.addLongClickListener(new OnSymbolLongClickListener() {
                         @Override
                         public boolean onAnnotationLongClick(Symbol symbol) {
-                            onMarkerClickListener.OnMarkerLongClick(new WeMapMarker(symbol));
+                            _markers.forEach((marker) -> {
+                                if(symbol.getId() == marker.getId()){
+                                    onMarkerClickListener.OnMarkerLongClick(new WeMapMarker(symbol));
+                                }
+                            });
                             return true;
                         }
                     });
@@ -143,10 +153,12 @@ public class WeMapMap {
                 }
             }
         });
+        _markers.add(wemapMarker);
         return wemapMarker;
     }
 
     public void removeMarker(WeMapMarker wemapMarker){
+        _markers.remove(wemapMarker);
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
@@ -158,6 +170,7 @@ public class WeMapMap {
     }
 
     public void removeAllMarker(){
+        _markers.clear();
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
