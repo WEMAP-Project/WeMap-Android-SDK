@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import asia.wemap.androidsdk.annotaion.WeMapMarker;
+import asia.wemap.androidsdk.annotaion.WeMapViewMarker;
 import asia.wemap.androidsdk.geometry.LatLng;
 import asia.wemap.androidsdk.permissions.PermissionsListener;
 import asia.wemap.androidsdk.style.sources.GeoJSONSource;
@@ -181,7 +182,8 @@ public class WeMapMap {
         });
     }
 
-    public void createViewMarker(LatLng latLng, View view){
+    public WeMapViewMarker createViewMarker(LatLng latLng, View view){
+        WeMapViewMarker weMapViewMarker = new WeMapViewMarker();
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
@@ -189,7 +191,17 @@ public class WeMapMap {
                     markerViewManager.removeMarker(markerView);
                 markerView = new MarkerView(new
                         com.mapbox.mapboxsdk.geometry.LatLng(latLng.getLatitude(), latLng.getLongitude()), view);
-                markerViewManager.addMarker(markerView);
+                weMapViewMarker.setMarker(markerView);
+            }
+        });
+        return weMapViewMarker;
+    }
+
+    public void removeViewMarker(WeMapViewMarker weMapViewMarker){
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                    markerViewManager.removeMarker(weMapViewMarker.getViewMarker());
             }
         });
     }
