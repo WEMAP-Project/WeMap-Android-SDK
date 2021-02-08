@@ -27,7 +27,7 @@ public class WeMapMarker {
     }
 
     public LatLng getMarkerGeometry(){
-        return new LatLng(this.symbol.getGeometry().latitude(), this.symbol.getGeometry().longitude());
+        return new LatLng(this.symbol != null ? this.symbol.getGeometry().latitude() : 0, this.symbol != null ? this.symbol.getGeometry().longitude() : 0);
     }
 
     public void setSymbol(Symbol symbol){
@@ -51,7 +51,7 @@ public class WeMapMarker {
     }
 
     public long getId(){
-        return this.symbol.getId();
+        return this.symbol != null ? this.symbol.getId() : -1;
     }
 
     public void set(String key, String value){

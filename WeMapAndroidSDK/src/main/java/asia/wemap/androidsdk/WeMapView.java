@@ -3,6 +3,7 @@ package asia.wemap.androidsdk;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +34,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.UiThread;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class WeMapView extends FrameLayout{
     MapView mapview;
@@ -135,6 +139,17 @@ public class WeMapView extends FrameLayout{
     @UiThread
     public void onResume() {
         this.mapview.onResume();
+        this.mapview.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(@NonNull MapboxMap mapboxMap) {
+                mapboxMap.getStyle(new com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded() {
+                    @Override
+                    public void onStyleLoaded(@NonNull Style style) {
+                        weMapMap = new WeMapMap(context, mapboxMap, mapview, style);
+                    }
+                });
+            }
+        });
     }
 
     @UiThread
