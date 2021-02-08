@@ -88,7 +88,8 @@ public class WeMapView extends FrameLayout{
     @UiThread
     public WeMapView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.mapview = new MapView(context, attrs);
+        MapboxMapOptions options = MapboxMapOptions.createFromAttributes(context, attrs).logoEnabled(false).attributionEnabled(false);
+        this.mapview = new MapView(context, options);
         this.mapview.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull MapboxMap mapboxMap) {
