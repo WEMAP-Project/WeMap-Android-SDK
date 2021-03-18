@@ -722,4 +722,8 @@ public class WeMapMap {
     public interface OnMapLongClickListener {
         public boolean onMapLongClick(LatLng point);
     }
+
+    public LatLng getCenter(){
+        return new LatLng(this.mapboxMap.getCameraPosition().target);
+    }
 }

@@ -57,6 +57,13 @@ public class LatLng implements Parcelable {
     public LatLng() {
         this.latitude = 0.0;
         this.longitude = 0.0;
+        this.altitude = 0.0;
+    }
+
+    public LatLng(com.mapbox.mapboxsdk.geometry.LatLng latLng) {
+        this.latitude = latLng.getLatitude();
+        this.longitude = latLng.getLongitude();
+        this.altitude = latLng.getAltitude();
     }
 
     /**
