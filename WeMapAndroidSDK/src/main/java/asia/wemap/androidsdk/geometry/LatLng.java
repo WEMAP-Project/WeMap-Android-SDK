@@ -60,11 +60,6 @@ public class LatLng implements Parcelable {
         this.altitude = 0.0;
     }
 
-    public LatLng(com.mapbox.mapboxsdk.geometry.LatLng latLng) {
-        this.latitude = latLng.getLatitude();
-        this.longitude = latLng.getLongitude();
-        this.altitude = latLng.getAltitude();
-    }
 
     /**
      * Construct a new latitude, longitude point given double arguments
@@ -109,6 +104,13 @@ public class LatLng implements Parcelable {
         this.latitude = latLng.latitude;
         this.longitude = latLng.longitude;
         this.altitude = latLng.altitude;
+    }
+
+    public LatLng fromLatLng(com.mapbox.mapboxsdk.geometry.LatLng latLng) {
+        this.latitude = latLng.getLatitude();
+        this.longitude = latLng.getLongitude();
+        this.altitude = latLng.getAltitude();
+        return this;
     }
 
     /**

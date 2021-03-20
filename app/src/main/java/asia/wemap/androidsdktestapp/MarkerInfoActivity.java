@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import asia.wemap.androidsdk.OnCameraMoveStartedListener;
 import asia.wemap.androidsdk.OnMarkerClickListener;
 import asia.wemap.androidsdk.WeMap;
 import asia.wemap.androidsdk.WeMapMap;
@@ -48,6 +49,13 @@ public class MarkerInfoActivity extends AppCompatActivity {
                     }
                 } );
 
+                wemapMap.onCameraMoveStartedListener(new OnCameraMoveStartedListener() {
+                    @Override
+                    public void onCameraMoveStarted(int reason) {
+                        Log.d("test", String.valueOf(reason));
+                    }
+                });
+
                 wemapMap.onMarkerClick(new OnMarkerClickListener() {
                     @Override
                     public void OnMarkerClick(WeMapMarker weMapMarker) {
@@ -70,6 +78,8 @@ public class MarkerInfoActivity extends AppCompatActivity {
                         //Xoa marker
                         wemapMap.removeMarker(marker);
                         //Xoa het marker
+//                        wemapMap.removeViewMarker(marker);
+
 //                        wemapMap.removeAllMarker();
                         Log.d("test", marker.getMarkerGeometry().toString());
                     }

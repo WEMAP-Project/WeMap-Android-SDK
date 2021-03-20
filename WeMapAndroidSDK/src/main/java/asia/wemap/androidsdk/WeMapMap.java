@@ -47,6 +47,7 @@ import com.mapbox.mapboxsdk.style.layers.RasterLayer;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.mapboxsdk.style.sources.RasterSource;
+import com.mapbox.mapboxsdk.style.sources.Source;
 import com.mapbox.mapboxsdk.style.sources.TileSet;
 
 import java.util.ArrayList;
@@ -88,7 +89,6 @@ public class WeMapMap {
         this.context = ctx;
         this.symbolManager = new SymbolManager(mapView, mapboxMap, style);
         this.markerViewManager = new MarkerViewManager(mapView, mapboxMap);
-
     }
 
     public void addImage(String ICON_ID, @NonNull Bitmap image){
@@ -128,6 +128,15 @@ public class WeMapMap {
                         }
                     });
                 }
+            }
+        });
+    }
+
+    public void onCameraMoveStartedListener(OnCameraMoveStartedListener onCameraMoveStartedListener){
+        mapboxMap.addOnCameraMoveStartedListener(new MapboxMap.OnCameraMoveStartedListener(){
+            @Override
+            public void onCameraMoveStarted(int reason) {
+                onCameraMoveStartedListener.onCameraMoveStarted(reason);
             }
         });
     }
@@ -223,6 +232,15 @@ public class WeMapMap {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                     markerViewManager.removeMarker(weMapViewMarker.getViewMarker());
+            }
+        });
+    }
+
+    public void removeViewMarker(WeMapMarker weMapMarker){
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                markerViewManager.removeMarker(weMapMarker.getViewMarker());
             }
         });
     }
@@ -724,6 +742,14 @@ public class WeMapMap {
     }
 
     public LatLng getCenter(){
-        return new LatLng(this.mapboxMap.getCameraPosition().target);
+        return new LatLng().fromLatLng(this.mapboxMap.getCameraPosition().target);
+    }
+
+    public CameraPosition getCameraPosition(){
+        return new CameraPosition(this.mapboxMap.getCameraPosition());
+    }
+
+    public void setCameraPosition(CameraPosition cameraPosition){
+        this.mapboxMap.setCameraPosition(cameraPosition.getMCameraPosition());
     }
 }
